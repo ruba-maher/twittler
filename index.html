@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js"></script>
+    <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body> 
+    <nav>
+      <img src="http://pngimg.com/uploads/twitter/twitter_PNG14.png" alt="logo">
+      <ul>
+        <li> <a href="#"> Home </a> </li>
+        <li> <a href="#"> Tweets </a> </li>
+        <li> <a href="#"> My Profile </a> </li>
+      </ul>
+    </nav>
+    <main>
+<input type="text" name="text" id='text'> <button id="tweeter"> Tweet </button>
+      <button onclick="refresh()">Show More</button>
+      <div id ="tweets" class ="containner"></div> 
+    </main>
+    <aside>
+      <input type="search" placeholder="search" name="">
+
+    </aside>
+    <script>
+    
+     var $tweets = $('#tweets');
+      $('#tweeter').on('click', function(){
+          var tweet = streams.home[1];
+ 
+        var time = function(){
+            var a = new Date;
+            return "" + a.getHours() + " : " + a.getMinutes() + " : " + a.getSeconds() 
+          }
+        var $tweet = $('<div class="newtweets"> </div>');
+        $tweet.html('<p class="user"> @' + tweet.user + ': </p><p class="msg">' + $('#text').val() + '</p>' + '<p class="date">' + time() + '</p>');
+          $tweet.prependTo($tweets);
+        
+      })
+      function refresh(){
+        
+        //$body.html('');
+
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="newtweets"> </div>');
+          var time = function(){
+            var a = new Date;
+            return "" + a.getHours() + " : " + a.getMinutes() + " : " + a.getSeconds() 
+          }
+          $tweet.html('<p class="user"> @' + tweet.user + ': </p><p class="msg">' + tweet.message + '</p>' + '<p class="date">' + time() + '</p>');
+          $tweet.prependTo($tweets);
+          index -= 1;
+        }
+       
+      }
+      $(document).ready(function() {
+        $tweets.html('');
+        refresh()
+      });
+
+
+    </script>
+  </body>
+</html>
